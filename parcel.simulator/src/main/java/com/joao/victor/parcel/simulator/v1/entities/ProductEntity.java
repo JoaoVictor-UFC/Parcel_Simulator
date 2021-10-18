@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product")
@@ -18,7 +19,7 @@ public class ProductEntity extends AbstractEntity<Long> implements Serializable 
 
     private String name;
 
-    private double value;
+    private BigDecimal value;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_payment_terms", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_payment_terms"))
