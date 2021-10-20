@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  parcel-simulator-ws:
+    container_name: parcel-simulator-ws
+    restart: always
+    image: johnnykeys/parcel-simulator
+    ports: 
+      - "8080:8080"
+      
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "12345"
+      POSTGRES_USER: postgres
+      POSTGRES_DB: parcelsimulator
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./temp
