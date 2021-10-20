@@ -1,6 +1,6 @@
 package com.joao.victor.parcel.simulator.v1.security;
 
-import com.joao.victor.parcel.simulator.v1.service.SaleService;
+import com.joao.victor.parcel.simulator.v1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private Environment environment;
 
     @Autowired
-    private SaleService saleService;
+    private UserService userService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -48,7 +48,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(saleService,environment,authenticationManager());
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(userService,environment,authenticationManager());
         authenticationFilter.setFilterProcessesUrl(environment.getProperty("user.login.url.path"));
         authenticationFilter.setAuthenticationManager(authenticationManager());
         return authenticationFilter;
@@ -56,7 +56,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(saleService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Bean

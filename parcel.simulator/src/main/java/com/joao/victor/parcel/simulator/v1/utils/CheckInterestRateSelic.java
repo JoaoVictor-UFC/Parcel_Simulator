@@ -24,12 +24,12 @@ public @Data class CheckInterestRateSelic implements Serializable {
 
     private String value;
 
-    public BigDecimal check () throws Exception {
+    public static BigDecimal check () throws Exception {
         InterestRateResponse res = fetchInterestRate();
-        return BigDecimal.valueOf(Double.parseDouble(res.getValue()));
+        return BigDecimal.valueOf(Double.parseDouble(res.getValor()));
     }
 
-    private InterestRateResponse fetchInterestRate() throws Exception {
+    public static InterestRateResponse fetchInterestRate() throws Exception {
 
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -48,7 +48,7 @@ public @Data class CheckInterestRateSelic implements Serializable {
 
             BufferedReader resposta = new BufferedReader(new InputStreamReader((conexao.getInputStream())));
             String jsonEmString = convertJsonString(resposta);
-
+            jsonEmString = jsonEmString.replace("[", "").replace("]", "");
             Gson gson = new Gson();
             InterestRateResponse r = gson.fromJson(jsonEmString, InterestRateResponse.class);
 
@@ -58,7 +58,7 @@ public @Data class CheckInterestRateSelic implements Serializable {
         }
     }
 
-        private String convertJsonString(BufferedReader buffereReader) throws IOException {
+        public static String convertJsonString(BufferedReader buffereReader) throws IOException {
             String resposta, jsonString = "";
             while ((resposta = buffereReader.readLine()) != null) {
                 jsonString += resposta;

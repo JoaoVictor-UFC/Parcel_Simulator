@@ -1,10 +1,9 @@
 package com.joao.victor.parcel.simulator.v1.controller;
 
 import com.joao.victor.parcel.simulator.errorExceptions.MessageErrorCustom;
-import com.joao.victor.parcel.simulator.v1.dtos.BuyProductRequest;
-import com.joao.victor.parcel.simulator.v1.dtos.BuyProductResponse;
-import com.joao.victor.parcel.simulator.v1.entities.ProductEntity;
-import com.joao.victor.parcel.simulator.v1.service.SaleService;
+import com.joao.victor.parcel.simulator.v1.dtos.CreateUserRequest;
+import com.joao.victor.parcel.simulator.v1.dtos.UserResponse;
+import com.joao.victor.parcel.simulator.v1.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -19,26 +18,28 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
-@Api(value = "Sale-Service", tags = { "Sale-Service" })
+@Api(value = "User Service", tags = { "User Service" })
 @RestController
 @Valid
-@RequestMapping("/sale")
-public class SaleController {
+@RequestMapping("/user")
+public class UserController {
 
     @Autowired
-    private SaleService saleService;
+    private UserService userService;
 
-    @ApiOperation(value = "buy a product",notes = "")
+    @ApiOperation(value = "Create User",notes = "")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "CREATED", response = BuyProductResponse.class),
+            @ApiResponse(code = 201, message = "CREATED", response = CreateUserRequest.class),
             @ApiResponse(code = 401, message = "UNAUTHORIZATED", response = MessageErrorCustom.class),
             @ApiResponse(code = 403, message = "FORBIDDEN", response = MessageErrorCustom.class),
             @ApiResponse(code = 404, message = "NOT FOUND", response = MessageErrorCustom.class)
     })
     @PostMapping(consumes = { "application/json", "application/xml" })
-    public ResponseEntity<List<BuyProductResponse>> buyProduct(@RequestBody @Valid BuyProductRequest req) throws Exception {
-        return ResponseEntity.ok().body(saleService.buyProduct(req));
+    public ResponseEntity<UserResponse> createUser(@RequestBody @Valid CreateUserRequest req){
+        UserResponse user = userService.createUser(req);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}/id").buildAndExpand(user.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 }

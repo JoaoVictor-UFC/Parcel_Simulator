@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.joao.victor.parcel.simulator.v1.dtos.LoginRequest;
 import com.joao.victor.parcel.simulator.v1.dtos.UserResponse;
-import com.joao.victor.parcel.simulator.v1.service.SaleService;
+import com.joao.victor.parcel.simulator.v1.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.core.env.Environment;
@@ -29,12 +29,12 @@ import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final SaleService saleService;
+    private final UserService userService;
     private final Environment environment;
 
-    public AuthenticationFilter(SaleService saleService, Environment environment,
+    public AuthenticationFilter(UserService userService, Environment environment,
                                 AuthenticationManager authenticationManager) {
-        this.saleService = saleService;
+        this.userService = userService;
         this.environment = environment;
         super.setAuthenticationManager(authenticationManager);
     }
@@ -56,7 +56,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication auth) throws IOException, ServletException {
 
         String login = ((User) auth.getPrincipal()).getUsername();
-        UserResponse user = saleService.fromUserEntityToUserResponse(saleService.findUserByLogin(login));
+        UserResponse user = userService.fromUserEntityToUserResponse(userService.findUserByLogin(login));
         ObjectMapper objectMapper = new ObjectMapper();
         Long expirationTime = Long.parseLong(environment.getProperty("token.expiration_time"));
         String token = Jwts.builder().setSubject(user.getLogin())

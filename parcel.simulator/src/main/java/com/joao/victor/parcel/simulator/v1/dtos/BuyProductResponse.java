@@ -9,7 +9,7 @@ public @Data class BuyProductResponse implements Serializable {
 
     private Long id;
 
-    private boolean inCash;
+    private String name;
 
     private Integer parcelNumber;
 

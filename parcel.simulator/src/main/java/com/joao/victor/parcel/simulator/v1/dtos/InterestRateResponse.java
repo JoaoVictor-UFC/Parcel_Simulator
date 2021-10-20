@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public @Data class InterestRateResponse implements Serializable {
 
-    private String date;
+    private String data;
 
-    private String value;
+    private String valor;
 }

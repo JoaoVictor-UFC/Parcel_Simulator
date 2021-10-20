@@ -17,24 +17,9 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public @Data class PaymentTermsEntity extends AbstractEntity<Long> implements Serializable {
 
-    private CheckInterestRateSelic checkInterestRateSelic;
-
     private BigDecimal inputValue;
 
     private Integer numberInstallments;
 
     private BigDecimal interestRate;
-
-    public int checkInCash(BigDecimal inputValue, BigDecimal valueProd){
-
-        if (inputValue.equals(valueProd)){
-            return TypeBuy.INSTALLMENTS.getCod();
-        }
-        return TypeBuy.IN_CASH.getCod();
-    }
-
-    public BigDecimal calculateInterestForMonth(BigDecimal inputValue, Integer numberInstallments) throws Exception {
-        BigDecimal resultFinal = inputValue.add(checkInterestRateSelic.check().multiply(inputValue));
-        return resultFinal;
-    }
 }

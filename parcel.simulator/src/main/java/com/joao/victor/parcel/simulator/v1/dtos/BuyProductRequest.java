@@ -1,14 +1,13 @@
 package com.joao.victor.parcel.simulator.v1.dtos;
 
-
-import com.joao.victor.parcel.simulator.v1.entities.PaymentTermsEntity;
 import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public @Data class BuyProductRequest implements Serializable {
+
+    private Long id;
 
     @NotBlank
     private String code;
@@ -16,9 +15,8 @@ public @Data class BuyProductRequest implements Serializable {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private BigDecimal value;
+    @NotNull
+    private double value;
 
-    @NotBlank
-    private PaymentTermsEntity paymentTerms;
+    private PaymentTermsRequest paymentTerms;
 }

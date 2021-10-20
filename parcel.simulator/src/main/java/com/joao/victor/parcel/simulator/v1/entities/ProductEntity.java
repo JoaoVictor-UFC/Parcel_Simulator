@@ -1,5 +1,6 @@
 package com.joao.victor.parcel.simulator.v1.entities;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 @Table(name = "product")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ProductEntity extends AbstractEntity<Long> implements Serializable {
+public @Data class ProductEntity extends AbstractEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +22,7 @@ public class ProductEntity extends AbstractEntity<Long> implements Serializable 
 
     private BigDecimal value;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_payment_terms", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_payment_terms"))
     private PaymentTermsEntity paymentTermsEntity;
 }
