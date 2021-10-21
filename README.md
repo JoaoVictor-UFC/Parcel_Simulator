@@ -44,6 +44,9 @@ Tabela de conteúdos
  # Tambem é possivel baixar a imagem do projeto no Docker Hub
   docker push johnnykeys/parcel-simulator:latest
  
+ # Voce pode cadastrar um novo user, ou pode usar o Login:admin, senha:admin1234 para logar,
+ o codigo usa autenticação por jwt, então pege o token e utilize 'Bearer token'
+ 
  # O servidor iniciará na porta:8080
  # Acesse http://localhost:8080
   Utilizando o insomnia ou postman, deixei as colletions do insomnia no repositorio!
