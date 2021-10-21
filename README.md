@@ -33,10 +33,10 @@ Tabela de conteúdos
    
 ````bash 
  # Clone este repositório
- git clone https://github.com/JoaoVictor-UFC/Authentication-session.git
+ git clone https://github.com/JoaoVictor-UFC/Parcel_Simulator.git
  
  # Acesse a pasta do projeto no terminal
- cd Authentication-session/deploy/
+ cd Parcel_Simulator/deploy/
  
  # Rode o comando docker-compose up -d
   Isso ira criar 2 containers com postgres, e o da aplicação.
